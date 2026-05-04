@@ -150,5 +150,28 @@ ServerEvents.recipes(event => {
             })
         })
     })
+    
+    event.recipes.create.deploying('minecraft:skeleton_skull', [
+        'minecraft:bone_block',
+        'minecraft:carved_pumpkin'
+    ])
+
+    const headTypes = [
+        { species: 'player_head', catalyst: 'lapis_lazuli' },
+        { species: 'zombie_head', catalyst: 'rotten_flesh' },
+        { species: 'creeper_head', catalyst: 'gunpowder' }, 
+        { species: 'piglin_head', catalyst: 'gold_nugget' },
+        { species: 'wither_skeleton_skull', catalyst: 'soul_sand' },
+        { species: 'dragon_head', catalyst: 'ender_eye'}
+    ]
+
+    headTypes.forEach(head => {
+        event.recipes.create.mixing(`minecraft:${head.species}`, [
+            'minecraft:skeleton_skull',
+            '2x architect:plastic_bit',
+            `4x minecraft:${head.catalyst}`
+        ]).heated()
+    })
+    
 
 })
