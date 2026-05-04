@@ -109,6 +109,12 @@ StartupEvents.registry('item', event => {
         .texture('layer0', 'minecraft:item/iron_nugget')
         .color(0, end)
 
+    // Plastic Sheet
+    event.create('architect:plastic_sheet')
+        .displayName('Plastic Sheet')
+        .texture('layer0', 'create:item/iron_sheet')
+        .color(0, end)
+
     // Blank Disc
     event.create('architect:blank_disc')
         .displayName('Blank Disc')
@@ -273,7 +279,7 @@ StartupEvents.registry('block', event => {
     event.create('architect:genesis_block')
         .displayName('Genesis Egg')
         .textureAll('minecraft:block/gilded_blackstone')
-        .color('#211338')
+        .color('#6930c5')
         .soundType('amethyst')
         .mapColor('gold')
         .hardness(5.0)
