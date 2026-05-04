@@ -31,8 +31,8 @@ ServerEvents.recipes(event => {
         N: 'minecraft:netherite_block'
     })
 
-    // 9x Bedrock
-    event.shaped('9x minecraft:bedrock', [
+    // 4x Bedrock
+    event.shaped('4x minecraft:bedrock', [
         'EOE',
         'GNG',
         'EBE'
@@ -42,7 +42,13 @@ ServerEvents.recipes(event => {
         G: 'architect:genesis_tear',
         N: 'minecraft:netherite_block',
         B: 'architect:genesis_block'
-    })    
+    })
+
+    // Reinforced Deepslate
+    event.recipes.create.compacting('minecraft:reinforced_deepslate', [
+        '8x minecraft:deepslate',
+        'minecraft:bedrock'
+    ]).superheated()
         
     // Ender Sword
     event.shaped('architect:ender_arm', [
