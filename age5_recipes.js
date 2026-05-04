@@ -298,4 +298,24 @@ ServerEvents.recipes(event => {
             R: 'minecraft:netherrack'
         })
 
+        event.shaped('minecraft:totem_of_undying', [
+            'GEG',
+            'GRG',
+            ' G '
+        ], {
+            G: 'minecraft:gold_ingot',
+            E: 'minecraft:emerald',
+            R: 'architect:bandage_rune'
+        })
+
+        event.shaped('minecraft:trident', [
+            ' SS',
+            ' RS',
+            'P  '
+        ], {
+            S: [ 'minecraft:iron_sword', 'minecraft:golden_sword', 'minecraft:diamond_sword', 'minecraft:netherite_sword' ],
+            R: 'architect:dolphin_rune',
+            P: 'minecraft:prismarine_shard'
+        })
+
 })
