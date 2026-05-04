@@ -1,4 +1,5 @@
 // Age 2 Recipes
+// Biology
 
 ServerEvents.recipes(event => {
 
@@ -109,6 +110,19 @@ ServerEvents.recipes(event => {
         R: 'minecraft:red_dye',
         T: 'minecraft:stick',
         S: 'minecraft:wheat_seeds'
+    })
+
+    // God Apple
+    event.shaped('4x minecraft:enchanted_golden_apple', [
+        'BAZ',
+        'ANA',
+        'PAB'
+    ], {
+        B: 'architect:bandage_rune',
+        A: 'minecraft:golden_apple',
+        Z: 'architect:blaze_rune',
+        N: 'architect:null_rune',
+        P: 'architect:protect_rune',
     })
 
     // 1x Granny Ironsmith
@@ -279,6 +293,17 @@ ServerEvents.recipes(event => {
         'minecraft:bone_meal',
         'minecraft:moss_block'
     ]).replaceIngredient('minecraft:moss_block', 'minecraft:moss_block')
+
+    // Azalea
+    event.shaped('minecraft:azalea', [
+        'VMV',
+        'VDV',
+        ' D '
+    ], {
+        V: 'minecraft:vine',
+        M: 'minecraft:moss_block',
+        D: 'minecraft:big_dripleaf'
+    })
     
 
     // 8x Dye multiplier
@@ -314,6 +339,15 @@ ServerEvents.recipes(event => {
     // 3x String
     event.recipes.create.mixing('3x minecraft:string', 'minecraft:paper')
 
+    // Cobweb
+    event.shaped('2x minecraft:cobweb', [
+        'S S',
+        ' S ',
+        'S S'
+    ], {
+        S: 'minecraft:string'
+    })
+
     // 1x Feather
     event.shaped('minecraft:feather', [
         ' S ',
@@ -341,34 +375,92 @@ ServerEvents.recipes(event => {
         Fluid.water(500)
     ])
 
-    // 1x Red Mushroom
-    event.recipes.create.splashing('minecraft:red_mushroom', [
-        'minecraft:crimson_fungus'
+    // 1x Vine
+    event.recipes.create.haunting('minecraft:vine', 'minecraft:kelp')
+
+    // Weeping Vines
+    event.recipes.create.mixing('4x minecraft:weeping_vines', [
+        '5x minecraft:crimson_fungus',
+        '3x minecraft:vine'
     ])
 
-    // 3x Red Mushroom
-    event.shaped('3x minecraft:red_mushroom', [
-        ' R ',
-        'RSR',
-        ' S '
-    ], {
-        R: 'minecraft:red_dye',
-        S: 'minecraft:stick'
+    // Twisting Vines
+    event.recipes.create.mixing('4x minecraft:twisting_vines', [
+        '5x minecraft:warped_fungus',
+        '3x minecraft:vine'
+    ])
+
+    // Mushrooms
+    const mushColor = [
+        { type: 'minecraft:red_mushroom', dye: 'minecraft:red_dye', haunt: 'minecraft:crimson_fungus', catalyst: 'minecraft:bone_meal'},
+        { type: 'minecraft:brown_mushroom', dye: 'minecraft:brown_dye', haunt: 'minecraft:warped_fungus', catalyst: 'minecraft:rotten_flesh'}
+    ]
+
+    mushColor.forEach(m => {
+        // 3x Mushroom
+        event.shaped(`3x ${m.type}`, [
+            ' D ',
+            'DSD',
+            ' S '
+        ], {
+            D: `${m.dye}`,
+            S: 'minecraft:stick'
+        })
+        
+        // 1x Fungus
+        event.recipes.create.haunting(`${m.haunt}`, [
+            `${m.type}`
+        ])
+
+        // 1x Mushroom
+        event.recipes.create.splashing(`${m.type}`, [
+            `${m.haunt}`
+        ])
+
+        // 1x Mushroom Block
+        event.recipes.create.compacting(`${m.type}_block`, [
+            `8x ${m.type}`,
+            `${m.catalyst}`
+        ])
+
+        // Nether Stems
+        event.recipes.create.compacting(`${m.haunt}_stem`, [
+            `8x ${m.haunt}`,
+            ``
+        ])
     })
 
-    // 1x Brown Mushroom
-    event.recipes.create.splashing('minecraft:brown_mushroom', [
-        'minecraft:warped_fungus'
+    // Mushroom Stem
+    event.recipes.create.compacting('4x minecraft:mushroom_stem', [
+        '4x minecraft:red_mushroom', 
+        '4x minecraft:brown_mushroom', 
+        'minecraft:bone_meal',
+        'minecraft:rotten_flesh'
     ])
 
-    // 3x Brown Mushroom
-    event.shaped('3x minecraft:brown_mushroom', [
-        ' B ',
-        'BSB',
-        ' S '
-    ],{
-        B: 'minecraft:brown_dye',
-        S: 'minecraft:stick'
+    // Mycelium
+    event.shaped('minecraft:mycelium', [
+        'M',
+        'B',
+        'D'
+    ], {
+        M: 'minecraft:brown_mushroom',
+        B: 'minecraft:bone_meal',
+        D: 'minecraft:dirt'
+    })
+
+    // Nylium
+    const nyl = [ 'crimson', 'warped' ]
+    nyl.forEach(n => {
+        event.shaped(`minecraft:${n}_nylium`, [
+            'F',
+            'B',
+            'N'
+        ], {
+            F: `minecraft:${n}_fungus`,
+            B: 'minecraft:bone_meal',
+            N: 'minecraft:netherrack'
+        })
     })
     
     // 1x Wet Sponge
@@ -473,12 +565,37 @@ ServerEvents.recipes(event => {
     ]).heated()
 
     // 1x Sculk Catalyst
-    event.recipes.create.mixing(['minecraft:sculk_catalyst'], [
+    event.recipes.create.mixing('minecraft:sculk_catalyst', [
         'minecraft:end_stone',
         'minecraft:soul_sand',
         'minecraft:redstone',
         'minecraft:amethyst_shard',
     ]).superheated()
+
+    // 4x Sculk Vein
+    event.recipes.create.cutting('4x minecraft:sculk_vein', [
+        'minecraft:sculk_catalyst'
+    ])
+
+    // Sculk
+    event.shaped('minecraft:sculk', [
+        'VV',
+        'VV'
+    ], {
+        V: 'minecraft:sculk_vein'
+    })
+
+    // Sculk Sensor
+    event.recipes.create.sequenced_assembly(['minecraft:sculk_sensor'], 'minecraft:sculk', [
+        event.recipes.create.deploying('minecraft:sculk', ['minecraft:sculk', 'minecraft:soul_sand']),
+        event.recipes.create.deploying('minecraft:sculk', ['minecraft:sculk', 'minecraft:sculk_vein']),
+        event.recipes.create.deploying('minecraft:sculk', ['minecraft:sculk', 'minecraft:redstone']),
+    ]).transitionalItem('minecraft:sculk').loops(1)
+
+    // Sculk Shrieker
+    event.recipes.create.sequenced_assembly(['minecraft:sculk_shrieker'], 'minecraft:sculk_sensor', [
+        event.recipes.create.deploying('minecraft:sculk', ['minecraft:sculk', 'minecraft:goat_horn'])
+    ]).transitionalItem('minecraft:sculk_sensor').loops(4)
 
     // Flower Crown
     event.shaped('architect:flower_crown', [
