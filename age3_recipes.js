@@ -1,4 +1,5 @@
 // Age 3 Recipes
+// Industry
 
 ServerEvents.recipes(event => {
 
@@ -17,7 +18,7 @@ ServerEvents.recipes(event => {
 
     // 3x Magma Block
     event.recipes.create.mixing('3x minecraft:magma_block', [
-        '3x minecraft:cobblestone',
+        '3x minecraft:stone',
         Fluid.lava(1000)
     ])
 
@@ -90,6 +91,46 @@ ServerEvents.recipes(event => {
         '9x architect:diamond_chunk'
     ])
 
+    // Iron Horse Armor
+    event.recipes.create.sequenced_assembly([ 'minecraft:iron_horse_armor'],
+        'minecraft:leather_horse_armor', [
+            event.recipes.create.deploying('minecraft:leather_horse_armor', [
+                'minecraft:leather_horse_armor',
+                'minecraft:iron_ingot'
+            ])
+        ]
+    ).transitionalItem('minecraft:leather_horse_armor').loops(7)
+
+    // Golden Horse Armor
+    event.recipes.create.sequenced_assembly([ 'minecraft:golden_horse_armor'],
+        'minecraft:iron_horse_armor', [
+            event.recipes.create.deploying('minecraft:iron_horse_armor', [
+                'minecraft:iron_horse_armor',
+                'minecraft:gold_ingot'
+            ])
+        ]
+    ).transitionalItem('minecraft:iron_horse_armor').loops(7)
+
+    // Diamond Horse Armor
+    event.recipes.create.sequenced_assembly([ 'minecraft:diamond_horse_armor'],
+        'minecraft:golden_horse_armor', [
+            event.recipes.create.deploying('minecraft:golden_horse_armor', [
+                'minecraft:golden_horse_armor',
+                'minecraft:diamond'
+            ])
+        ]
+    ).transitionalItem('minecraft:golden_horse_armor').loops(7)
+
+    // Bell
+    event.shaped('minecraft:bell', [
+        ' S ',
+        'GGG',
+        'G G'
+    ], {
+        S: 'create:shaft',
+        G: 'create:golden_sheet'
+    })
+
     // 1x Amethyst Shard
     event.recipes.create.haunting('minecraft:amethyst_shard', [
         'architect:diamond_chunk'
@@ -106,6 +147,12 @@ ServerEvents.recipes(event => {
         A: 'minecraft:amethyst_block'
     })
 
+    // Echo Shard
+    event.recipes.create.deploying('minecraft:echo_shard', [
+        'minecraft:amethyst_shard',
+        'minecraft:sculk_vein'
+    ])
+
     // 1x Blaze Burner
     event.shaped('create:blaze_burner', [
         'DRI',
@@ -117,6 +164,11 @@ ServerEvents.recipes(event => {
         I: 'createaddition:iron_rod',
         B: 'create:empty_blaze_burner'
     })
+
+    event.shapeless('create:blaze_burner', [
+        'create:empty_blaze_burner',
+        'minecraft:blaze_spawn_egg'
+    ])
 
     // 1x Lapis Lazuli
     event.recipes.create.mixing('minecraft:lapis_lazuli', [
