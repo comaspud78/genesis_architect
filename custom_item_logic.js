@@ -160,7 +160,9 @@ BlockEvents.leftClicked(event => {
     if (unbreakables.includes(block.id) && player.mainHandItem.id == 'architect:ender_hand') {
         block.popItem(block.id)
         block.set('minecraft:air')
-        player.mainHandItem.damageValue += 2
+        if ( player.gamemode != 'creative') {
+            player.mainHandItem.damageValue += 2
+        }
         if (!player.persistentData.brokeUnbreakable) {
             player.tell(Text.lightPurple("The Hand of Sovereignty rewrites reality..."))
             player.persistentData.brokeUnbreakable = true
