@@ -11,12 +11,13 @@ For organization and clarity, recipe files have been organized by "Age".
 
 Each file will be described briefly:
 
-1.0.2_architect_items:
+architect_items:
   - a list of new items within Minecraft's item recipe.
   - in order to work, THIS FILE MUST GO IN
         kubejs > startup_scripts > items >/
   - ALL OTHER FILES MUST GO IN
         kubejs > server_scripts >/
+  - * THIS MUST BE SET UP FIRST BEFORE THE GAME IS LAUNCHED *
 
 age_tags:
   - new items and recipes added will be grouped here for clarity.
@@ -34,11 +35,20 @@ age1:
 age2:
   - Basic handcrafting recipes for creating Crops, Trees, and Biological Matter
 
+age2.5_tinkers_biology:
+  - Biological additions from Tinker's Construct, such as Bacon and Ichor.
+
 age3:
   - The beginning of advanced / mechanical crafting, higher-tier materials, mass-production
 
+age3.5_tinkers_metals:
+  - Non-biological materials from Tinker's Construct, such as Steel and Cobalt.
+
 age4:
   - Synthesis of autonomic life - Cows, Skeletons, Elder Guardians
+
+age4.5_tinkers_eggs:
+  - Spawn Eggs for Tinker's Construct mobs: Terracube, Skyslime, Enderslime.
 
 age5:
   - Invention of magical enhancement through logistical crafting chains
