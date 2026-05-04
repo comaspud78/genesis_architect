@@ -3,6 +3,7 @@
 
 ServerEvents.recipes(event => {
 
+    // Cobblestone
     event.shaped('minecraft:cobblestone', [
         'PP',
         'PP'
@@ -56,6 +57,15 @@ ServerEvents.recipes(event => {
         Item.of('minecraft:sand').withChance(0.25), 
         ['architect:stone_pebble']
     )
+
+    // Suspicious...
+    const sus = [ 'sand', 'gravel' ]
+    sus.forEach(s => {
+        event.recipes.create.mixing(`minecraft:suspicious_${s}`, [
+            `minecraft:${s}`,
+            'minecraft:brick'
+        ]).heated()
+    })
 
     // 1x Dirt
     event.shaped('minecraft:dirt', [
@@ -186,4 +196,43 @@ ServerEvents.recipes(event => {
         'create:crimsite'
     ])
 
+    // Ores
+    const ores = [
+        'coal', 'iron', 'copper', 'gold', 'redstone',
+        'emerald', 'lapis_lazuli', 'diamond'
+    ]
+
+    ores.forEach(ore => {
+        if (ore != 'iron' && ore != 'copper' && ore != 'gold') {
+            event.recipes.create.deploying(`minecraft:${ore}_ore`, [
+                'minecraft:stone',
+                ore
+            ])
+            event.recipes.create.deploying(`minecraft:deepslate_${ore}_ore`, [
+                'minecraft:deepslate',
+                ore
+            ])
+        } else if (ore == 'iron' || ore == 'copper' || ore == 'gold') {
+            event.recipes.create.deploying(`minecraft:${ore}_ore`, [
+                'minecraft:stone',
+                `${ore}_ingot`
+            ])
+            event.recipes.create.deploying(`minecraft:deepslate_${ore}_ore`, [
+                'minecraft:deepslate',
+                `${ore}_ingot`
+            ])
+        }
+    })
+
+    // Nether Gold Ore
+    event.recipes.create.deploying('minecraft:nether_gold_ore', [
+        'minecraft:netherrack',
+        'minecraft:gold_ingot'
+    ])
+
+    // Nether Quartz Ore
+    event.recipes.create.deploying('minecraft:nether_quartz_ore', [
+        'minecraft:netherrack', 
+        'minecraft:quartz'
+    ])
 })
